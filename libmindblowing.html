@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Our Community Library - With Periodicals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.6.3/css/all.min.css">
+    
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 30px;
+        }
+        .main-container {
+            display: flex;
+            min-height: 600px;
+        }
+        .periodicals-sidebar {
+            width: 280px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-right: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        .main-content {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .search-container {
+            background: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .search-input {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 10px;
+        }
+        .search-btn {
+            background: #667eea;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: white;
+            transition: background 0.3s ease;
+        }
+        .search-btn:hover {
+            background: #764ba2;
+        }
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+        .books-icon { background: linear-gradient(45deg, #667eea, #764ba2); }
+        .members-icon { background: linear-gradient(45deg, #f093fb, #f5576c); }
+        .events-icon { background: linear-gradient(45deg, #4facfe, #00f2fe); }
+        .periodicals-icon { background: linear-gradient(45deg, #43e97b, #38f9d7); }
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        .periodical-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+        .periodical-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        .periodical-title {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        .periodical-type {
+            font-size: 0.85rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .periodical-latest {
+            font-size: 0.8rem;
+            color: #28a745;
+            margin-top: 5px;
+        }
+        .sidebar-title {
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .admin-panel {
+            width: 280px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-left: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        .admin-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            color: white;
+        }
+        .admin-dashboard {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+        }
+        .admin-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .admin-stat {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #ff6b6b;
+        }
+        .admin-stat-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        .admin-stat-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .admin-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .admin-action-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        .admin-action-btn:hover {
+            background: #5a6fd8;
+            color: white;
+        }
+        /* Splash Loader */
+        #splash {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 2000;
+        }
+        .loader-dots { display: flex; gap: 14px; margin-bottom: 20px; }
+        .loader-dots span {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: #cbd2ff; opacity: 0.8;
+            animation: dotBounce 0.9s infinite alternate ease-in-out;
+        }
+        .loader-dots span:nth-child(1) { animation-delay: 0s; }
+        .loader-dots span:nth-child(2) { animation-delay: .12s; background: #c5ccff; }
+        .loader-dots span:nth-child(3) { animation-delay: .24s; background: #bfc6ff; }
+        .loader-dots span:nth-child(4) { animation-delay: .36s; background: #e9a9a4; }
+        @keyframes dotBounce {
+            from { transform: translateY(0); opacity: .65; }
+            to   { transform: translateY(-12px); opacity: 1; }
+        }
+        .splash-text {
+            font-weight: 600; letter-spacing: 0.35em; color: #333;
+        }
+        .fade-out { animation: splashFade .7s ease forwards; }
+        @keyframes splashFade { to { opacity: 0; visibility: hidden; } }
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-wrap: wrap;
+            }
+            .periodicals-sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+                position: relative;
+            }
+            .admin-panel {
+                width: 100%;
+                margin-left: 0;
+                margin-bottom: 20px;
+                position: relative;
+            }
+            .main-content {
+                width: 100%;
+            }
+        }
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .periodicals-sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+                position: relative;
+            }
+            .admin-panel {
+                width: 100%;
+                margin-left: 0;
+                margin-bottom: 20px;
+                position: relative;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Loader (Navigation screen) -->
+    <div id="splash" aria-label="Loading Library">
+        <div class="loader-dots"><span></span><span></span><span></span><span></span></div>
+        <div class="splash-text">LOADING LIBRARY ...</div>
+    </div>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-10 text-center">
+                    <h1 class="display-4 fw-bold mb-4">Gudlavalleru Village Library</h1>
+                    <p class="lead mb-5">Serving Gudlavalleru, Krishna District, Andhra Pradesh - Est. October 2025</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="search-container">
+                                <div class="row align-items-center">
+                                    <div class="col-10">
+                                        <input type="text" class="search-input" placeholder="Search books, periodicals, authors..." id="searchInput">
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <button class="search-btn" onclick="searchAll()">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 text-end">
+                    <!-- Admin Panel Button -->
+                    <button class="admin-btn" onclick="toggleAdminPanel()">
+                        <i class="fas fa-user-shield"></i> Admin Panel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="main-container">
+            <!-- Left Sidebar: Periodicals -->
+            <div class="periodicals-sidebar">
+                <div class="text-center mb-4">
+                    <div class="feature-icon periodicals-icon mx-auto mb-3">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h4 class="sidebar-title">📰 Periodicals</h4>
+                </div>
+                
+                <div class="periodical-item" onclick="showPeriodical('national-geographic')">
+                    <div class="periodical-title">National Geographic</div>
+                    <div class="periodical-type">Monthly Magazine</div>
+                    <div class="periodical-latest">📅 Latest: December 2024</div>
+                </div>
+                
+                <div class="periodical-item" onclick="showPeriodical('scientific-american')">
+                    <div class="periodical-title">Scientific American</div>
+                    <div class="periodical-type">Monthly Journal</div>
+                    <div class="periodical-latest">📅 Latest: November 2024</div>
+                </div>
+                
+                <div class="periodical-item" onclick="showPeriodical('time-magazine')">
+                    <div class="periodical-title">Time Magazine</div>
+                    <div class="periodical-type">Weekly News</div>
+                    <div class="periodical-latest">📅 Latest: Week of Dec 15</div>
+                </div>
+                
+                <div class="periodical-item" onclick="showPeriodical('smithsonian')">
+                    <div class="periodical-title">Smithsonian</div>
+                    <div class="periodical-type">Monthly Magazine</div>
+                    <div class="periodical-latest">📅 Latest: December 2024</div>
+                </div>
+                
+                <div class="periodical-item" onclick="showPeriodical('new-yorker')">
+                    <div class="periodical-title">The New Yorker</div>
+                    <div class="periodical-type">Weekly Magazine</div>
+                    <div class="periodical-latest">📅 Latest: December 23, 2024</div>
+                </div>
+                
+                <div class="periodical-item" onclick="showPeriodical('local-news')">
+                    <div class="periodical-title">Village Daily News</div>
+                    <div class="periodical-type">Daily Newspaper</div>
+                    <div class="periodical-latest">📅 Latest: Today's Edition</div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn btn-outline-primary btn-sm" onclick="browseAllPeriodicals()">
+                        <i class="fas fa-list"></i> Browse All Periodicals
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: Admin Panel -->
+            <div class="admin-panel" id="adminPanel">
+                <div class="text-center mb-4">
+                    <div class="feature-icon" style="background: linear-gradient(45deg, #ff6b6b, #ee5a24); width: 60px; height: 60px; font-size: 1.5rem;">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h4 class="sidebar-title" style="color: #ff6b6b;">🔐 Admin Panel</h4>
+                </div>
+                
+                <div id="adminLogin" style="display: block;">
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" id="adminUsername" placeholder="Enter username">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="adminPassword" placeholder="Enter password">
+                    </div>
+                    <button class="btn btn-danger w-100" onclick="adminLogin()">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+                
+                <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+                    <h6 class="text-center mb-3">📊 Library Dashboard</h6>
+                    <div class="admin-stats">
+                        <div class="admin-stat">
+                            <div class="admin-stat-number">15</div>
+                            <div class="admin-stat-label">Total Books</div>
+                        </div>
+                        <div class="admin-stat">
+                            <div class="admin-stat-number">23</div>
+                            <div class="admin-stat-label">Active Members</div>
+                        </div>
+                        <div class="admin-stat">
+                            <div class="admin-stat-number">6</div>
+                            <div class="admin-stat-label">Periodicals</div>
+                        </div>
+                        <div class="admin-stat">
+                            <div class="admin-stat-number">3</div>
+                            <div class="admin-stat-label">Issued Today</div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-actions">
+                        <button class="admin-action-btn" onclick="manageBooks()">
+                            <i class="fas fa-book"></i> Add New Books
+                        </button>
+                        <button class="admin-action-btn" onclick="manageMembers()">
+                            <i class="fas fa-users"></i> Manage Members
+                        </button>
+                        <button class="admin-action-btn" onclick="managePeriodicals()">
+                            <i class="fas fa-newspaper"></i> Manage Periodicals
+                        </button>
+                        <button class="admin-action-btn" onclick="viewReports()">
+                            <i class="fas fa-chart-bar"></i> View Reports
+                        </button>
+                        <button class="admin-action-btn" onclick="manageEvents()">
+                            <i class="fas fa-calendar"></i> Manage Events
+                        </button>
+                        <button class="admin-action-btn" onclick="adminLogout()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Book Management Section -->
+                <div id="bookManagement" class="admin-dashboard" style="display: none; margin-top: 20px;">
+                    <h6 class="text-center mb-3">📚 Add New Books</h6>
+                    
+                    <!-- Single Book Entry -->
+                    <div class="mb-3">
+                        <label class="form-label">Book Title</label>
+                        <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Author Name</label>
+                        <input type="text" class="form-control" id="bookAuthor" placeholder="Enter author name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Book ID</label>
+                        <input type="text" class="form-control" id="bookId" placeholder="Enter unique book ID">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <select class="form-control" id="bookLocation">
+                            <option value="Gudlavalleru">Gudlavalleru Village</option>
+                            <option value="Krishna District">Krishna District</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select class="form-control" id="bookStatus">
+                            <option value="Available">Available</option>
+                            <option value="Borrowed">Borrowed</option>
+                            <option value="Reserved">Reserved</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success w-100 mb-3" onclick="addSingleBook()">
+                        <i class="fas fa-plus"></i> Add Book
+                    </button>
+                    
+                    <hr>
+                    
+                    <!-- CSV Format Import -->
+                    <h6 class="text-center mb-2">📄 CSV Import</h6>
+                    <textarea class="form-control mb-2" id="csvBooks" rows="4" placeholder="Format: Title,Author,ID,Location,Status&#10;Example: Ramayana,Valmiki,B001,Gudlavalleru,Available&#10;Mahabharata,Vyasa,B002,Gudlavalleru,Borrowed"></textarea>
+                    <button class="btn btn-primary w-100 mb-2" onclick="importCSVBooks()">
+                        <i class="fas fa-file-import"></i> Import CSV Books
+                    </button>
+                    
+                    <!-- Village Library Collections -->
+                    <div class="mt-3">
+                        <h6 class="text-center mb-2">🏘️ Village Collections</h6>
+                        <button class="btn btn-outline-secondary w-100 mb-1" onclick="addVillageBooks('telugu')">
+                            <i class="fas fa-book"></i> Telugu Literature
+                        </button>
+                        <button class="btn btn-outline-secondary w-100 mb-1" onclick="addVillageBooks('agriculture')">
+                            <i class="fas fa-seedling"></i> Agriculture & Farming
+                        </button>
+                        <button class="btn btn-outline-secondary w-100 mb-1" onclick="addVillageBooks('folk')">
+                            <i class="fas fa-music"></i> Folk Stories & Culture
+                        </button>
+                        <button class="btn btn-outline-secondary w-100" onclick="addVillageBooks('education')">
+                            <i class="fas fa-graduation-cap"></i> Educational Books
+                        </button>
+                    </div>
+                    
+                    <button class="btn btn-secondary w-100 mt-3" onclick="backToDashboard()">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <!-- Features Section -->
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="feature-icon books-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h5 class="card-title">Books Collection</h5>
+                                <p class="card-text">Browse thousands of books across all genres and subjects.</p>
+                                <button class="btn btn-primary btn-sm" onclick="showBooks()">Browse Books</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="feature-icon members-icon">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                                <h5 class="card-title">Library Membership</h5>
+                                <p class="card-text">Join our community of readers and access exclusive resources.</p>
+                                <button class="btn btn-success btn-sm" onclick="showMembership()">Join Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="feature-icon events-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <h5 class="card-title">Library Events</h5>
+                                <p class="card-text">Attend book clubs, workshops, and educational programs.</p>
+                                <button class="btn btn-info btn-sm" onclick="showEvents()">View Events</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <h4 class="text-center mb-4 text-primary">Library Statistics</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div>Books</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div>Periodicals</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">23</div>
+                        <div>Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div>Monthly Events</div>
+                    </div>
+                </div>
+
+                <!-- Village Library Book Display -->
+                <div class="mt-4">
+                    <h4 class="text-center mb-4 text-info">📖 Village Library Collection</h4>
+                    <div id="bookDisplay" class="row">
+                        <!-- Books will be displayed here -->
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-info" onclick="displayAllBooks()">
+                            <i class="fas fa-list"></i> Show All Books
+                        </button>
+                        <button class="btn btn-success" onclick="displayAvailableBooks()">
+                            <i class="fas fa-check-circle"></i> Available Books
+                        </button>
+                        <button class="btn btn-warning" onclick="displayBorrowedBooks()">
+                            <i class="fas fa-times-circle"></i> Borrowed Books
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Additions -->
+                <div class="mt-5">
+                    <h4 class="text-center mb-4 text-success">📚 Recent Additions</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">🔥 New Fiction Arrivals</h6>
+                                    <p class="card-text">Check out the latest bestselling novels and award-winning literature.</p>
+                                    <button class="btn btn-outline-primary btn-sm" onclick="showNewFiction()">View New Fiction</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">🔬 Latest Scientific Journals</h6>
+                                    <p class="card-text">Access cutting-edge research and academic publications.</p>
+                                    <button class="btn btn-outline-success btn-sm" onclick="showScientificJournals()">Browse Journals</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Our Community Library</h5>
+                    <p>Your gateway to knowledge and community</p>
+                    <p><strong>Periodicals Section:</strong> 500+ magazines, journals, and newspapers available for in-library reading and digital access.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <h6>Contact Us</h6>
+                    <p>📧 info@ourcommunitylibrary.org<br>
+                    📞 (08676) 123-4567<br>
+                    📍 Gudlavalleru, Andhra Pradesh, India<br>
+                    🕒 Mon-Fri: 8AM-11AM & 3PM-6PM | Sat: 9AM-1PM | Sun: Closed</p>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: #6c757d;">
+            <div class="text-center">
+                <p>&copy; 2024 Our Community Library. All rights reserved. | 📰 Periodicals updated daily</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function searchAll() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm.trim()) {
+                // Search in village books
+                const matchingBooks = villageBooks.filter(book => 
+                    book.title.toLowerCase().includes(searchTerm) ||
+                    book.author.toLowerCase().includes(searchTerm) ||
+                    book.id.toLowerCase().includes(searchTerm)
+                );
+                
+                if (matchingBooks.length > 0) {
+                    let results = `📚 Found ${matchingBooks.length} book(s) in Gudlavalleru Village Library:\n\n`;
+                    matchingBooks.forEach(book => {
+                        results += `📖 "${book.title}" by ${book.author}\n`;
+                        results += `   ID: ${book.id} | Status: ${book.status}\n`;
+                        results += `   Location: ${book.location}\n\n`;
+                    });
+                    alert(results);
+                } else {
+                    alert(`🔍 No books found for: "${searchTerm}"\n\n📚 Searching in village books...\n📰 Periodicals\n📖 Magazines\n📰 Newspapers`);
+                }
+            } else {
+                alert('Please enter a search term.');
+            }
+        }
+        
+        function showAllBooks() {
+            displayBooks(villageBooks, 'All Village Library Books');
+        }
+        
+        function showAvailableBooks() {
+            const availableBooks = villageBooks.filter(book => book.status === 'Available');
+            displayBooks(availableBooks, 'Available Books');
+        }
+        
+        function showBorrowedBooks() {
+            const borrowedBooks = villageBooks.filter(book => book.status === 'Borrowed');
+            displayBooks(borrowedBooks, 'Borrowed Books');
+        }
+        
+        function displayBooks(books, title) {
+            const container = document.getElementById('bookDisplay');
+            if (!container) {
+                // Fallback to alert if container not found
+                if (books.length === 0) {
+                    alert(`📚 ${title}: No books found.`);
+                    return;
+                }
+                let display = `📚 ${title} (${books.length} books):\n\n`;
+                books.forEach(book => {
+                    display += `📖 ${book.title}\n`;
+                    display += `   Author: ${book.author}\n`;
+                    display += `   ID: ${book.id}\n`;
+                    display += `   Status: ${book.status}\n`;
+                    display += `   Location: ${book.location}\n`;
+                    display += `   ${'─'.repeat(30)}\n\n`;
+                });
+                alert(display);
+                return;
+            }
+
+            // Render inline as cards to show all books clearly
+            const headerHtml = `
+                <div class="col-12 mb-3">
+                    <h4 class="text-center text-primary">${title} <span class="badge bg-secondary">${books.length}</span></h4>
+                </div>`;
+
+            if (books.length === 0) {
+                container.innerHTML = headerHtml + `
+                    <div class="col-12">
+                        <div class="alert alert-info">No books found.</div>
+                    </div>`;
+                return;
+            }
+
+            const cardsHtml = books.map(book => `
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">${book.title}</h5>
+                            <p class="card-text mb-1"><strong>Author:</strong> ${book.author}</p>
+                            <p class="card-text mb-1"><strong>ID:</strong> ${book.id}</p>
+                            <p class="card-text mb-1"><strong>Status:</strong> ${book.status}</p>
+                            <p class="card-text"><strong>Location:</strong> ${book.location}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = headerHtml + cardsHtml;
+        }
+        
+        function displayAllBooks() {
+            displayBooks(villageBooks, 'All Village Library Books');
+        }
+        
+        function displayAvailableBooks() {
+            const availableBooks = villageBooks.filter(book => book.status === 'Available');
+            displayBooks(availableBooks, 'Available Books');
+        }
+        
+        function displayBorrowedBooks() {
+            const borrowedBooks = villageBooks.filter(book => book.status === 'Borrowed');
+            displayBooks(borrowedBooks, 'Borrowed Books');
+        }
+        
+        function showPeriodical(periodicalName) {
+            const periodicals = {
+                'national-geographic': {
+                    title: 'National Geographic',
+                    info: '🌍 Explore the world\'s wonders, cultures, and scientific discoveries.\n\n📅 Available Issues: 2020-2024\n📍 Location: Periodicals Section A\n💻 Digital Access: Available online'
+                },
+                'scientific-american': {
+                    title: 'Scientific American',
+                    info: '🔬 Cutting-edge science and technology research.\n\n📅 Available Issues: 2019-2024\n📍 Location: Periodicals Section B\n💻 Digital Access: Full archive available'
+                },
+                'time-magazine': {
+                    title: 'Time Magazine',
+                    info: '📰 Current events, politics, and world news.\n\n📅 Available Issues: Latest 2 years\n📍 Location: Periodicals Section C\n💻 Digital Access: Current week + archives'
+                },
+                'smithsonian': {
+                    title: 'Smithsonian',
+                    info: '🏛️ History, science, art, and culture.\n\n📅 Available Issues: 2021-2024\n📍 Location: Periodicals Section D\n💻 Digital Access: Selected articles online'
+                },
+                'new-yorker': {
+                    title: 'The New Yorker',
+                    info: '📝 In-depth journalism, fiction, and cultural commentary.\n\n📅 Available Issues: 2020-2024\n📍 Location: Periodicals Section E\n💻 Digital Access: Full digital edition'
+                },
+                'local-news': {
+                    title: 'Village Daily News',
+                    info: '🏘️ Local community news and events.\n\n📅 Available Issues: Daily (kept 30 days)\n📍 Location: Newspaper Rack\n💻 Digital Access: Today\'s edition + 30-day archive'
+                }
+            };
+            
+            const periodical = periodicals[periodicalName];
+            if (periodical) {
+                alert(`📰 ${periodical.title}\n\n${periodical.info}`);
+            }
+        }
+        
+        function browseAllPeriodicals() {
+            alert('📚 Complete Periodicals Collection:\n\n📰 Newspapers (10+ titles)\n📖 Magazines (200+ titles)\n📚 Academic Journals (150+ titles)\n🎨 Art & Culture (45+ titles)\n🔬 Science & Technology (80+ titles)\n🏛️ History & Archaeology (35+ titles)\n\n💳 Library card required for in-library reading\n💻 Digital access available for most titles');
+        }
+        
+        function showBooks() {
+            displayBooks(villageBooks, 'Gudlavalleru Village Library Books');
+        }
+        
+        function showMembership() {
+            alert('🎫 Library Membership Benefits:\n\n✅ Free book borrowing (up to 10 items)\n✅ Periodicals reading in-library\n✅ Digital resource access\n✅ Event invitations\n✅ Study room reservations\n✅ Community programs participation\n✅ Inter-library loan requests\n\n💳 Sign up with ID and proof of address');
+        }
+        
+        function showEvents() {
+            alert('📅 Upcoming Library Events:\n\n📖 Book Club - Every Tuesday 6PM\n👶 Story Time - Wednesdays 10AM\n🎨 Art Workshop - Saturdays 2PM\n📚 Author Reading - Monthly (last Friday)\n🔬 Science Saturday - 1st & 3rd Saturdays\n📰 Current Events Discussion - Thursdays 7PM\n\n📧 Subscribe to our newsletter for updates!');
+        }
+        
+        function showNewFiction() {
+            alert('🔥 New Fiction Arrivals:\n\n📚 50+ new titles added this week\n⭐ Bestseller collections updated\n🏆 Award-winning novels\n📖 Local author showcases\n🎧 Audiobook versions available\n\n📍 New Fiction Section: 2nd Floor, Area A');
+        }
+        
+        function showScientificJournals() {
+            alert('🔬 Latest Scientific Journals:\n\n🧬 Nature - Latest research\n⚛️ Science - Breakthrough discoveries\n🏥 New England Journal of Medicine\n🌱 Environmental Science & Technology\n🔭 Astronomy & Astrophysics\n\n📍 Periodicals Section: Ground Floor\n💻 Digital access available with membership');
+        }
+        
+        // Add interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Our Community Library with Periodicals loaded successfully!');
+            // Hide splash after short delay
+            const splash = document.getElementById('splash');
+            setTimeout(() => splash.classList.add('fade-out'), 1600);
+            setTimeout(() => { if (splash) splash.style.display = 'none'; }, 2400);
+            
+            // Add hover effects to cards and periodical items
+            const cards = document.querySelectorAll('.card, .periodical-item');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+        
+        // Allow search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchAll();
+            }
+        });
+        
+        // Admin Panel Functions
+        function toggleAdminPanel() {
+            const adminPanel = document.getElementById('adminPanel');
+            if (adminPanel.style.display === 'none') {
+                adminPanel.style.display = 'block';
+            } else {
+                adminPanel.style.display = 'none';
+            }
+        }
+        
+        function adminLogin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            // Simple admin credentials (in real app, this would be server-side)
+            if (username === 'admin' && password === 'admin123') {
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                alert('✅ Admin login successful!');
+            } else {
+                alert('❌ Invalid credentials. Use username: admin, password: admin123');
+            }
+        }
+        
+        function adminLogout() {
+            document.getElementById('adminLogin').style.display = 'block';
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('adminUsername').value = '';
+            document.getElementById('adminPassword').value = '';
+            alert('👋 Admin logged out successfully!');
+        }
+        
+        function manageBooks() {
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('bookManagement').style.display = 'block';
+        }
+        
+        function backToDashboard() {
+            document.getElementById('bookManagement').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+        }
+        
+        // Book collection for Gudlavalleru Village Library - Updated October 2025
+        let villageBooks = [
+            {title: "Ramayana", author: "Valmiki", id: "B001", location: "Gudlavalleru", status: "Available"},
+            {title: "Mahabharata", author: "Vyasa", id: "B002", location: "Gudlavalleru", status: "Borrowed"},
+            {title: "Telugu Vachakalu", author: "Various", id: "B003", location: "Gudlavalleru", status: "Available"},
+            {title: "Paddy Cultivation Guide", author: "Agri Dept", id: "B004", location: "Gudlavalleru", status: "Available"},
+            {title: "Folk Tales of Andhra", author: "Local Authors", id: "B005", location: "Gudlavalleru", status: "Reserved"},
+            {title: "Krishna District History", author: "Dr. Rao", id: "B006", location: "Gudlavalleru", status: "Available"},
+            {title: "Coconut Farming Techniques", author: "Agri University", id: "B007", location: "Gudlavalleru", status: "Available"},
+            {title: "Telugu Panchatantra", author: "Traditional", id: "B008", location: "Gudlavalleru", status: "Borrowed"},
+            {title: "Andhra Pradesh Culture", author: "State Board", id: "B009", location: "Gudlavalleru", status: "Available"},
+            {title: "Village Administration Guide", author: "Panchayat Raj", id: "B010", location: "Gudlavalleru", status: "Available"},
+            {title: "Organic Farming Methods", author: "ICAR", id: "B011", location: "Gudlavalleru", status: "Available"},
+            {title: "Telugu Poetry Collection", author: "Various Poets", id: "B012", location: "Gudlavalleru", status: "Reserved"},
+            {title: "Indian Constitution Basics", author: "NCERT", id: "B013", location: "Gudlavalleru", status: "Available"},
+            {title: "Water Conservation Techniques", author: "Agri Dept", id: "B014", location: "Gudlavalleru", status: "Available"},
+            {title: "Local Festival Stories", author: "Village Elders", id: "B015", location: "Gudlavalleru", status: "Available"}
+        ];
+        
+        function addSingleBook() {
+            const title = document.getElementById('bookTitle').value;
+            const author = document.getElementById('bookAuthor').value;
+            const id = document.getElementById('bookId').value;
+            const location = document.getElementById('bookLocation').value;
+            const status = document.getElementById('bookStatus').value;
+            
+            if (!title || !author || !id) {
+                alert('Please fill in all book details!');
+                return;
+            }
+            
+            // Check if book ID already exists
+            if (villageBooks.find(book => book.id === id)) {
+                alert('Book ID already exists! Please use a unique ID.');
+                return;
+            }
+            
+            villageBooks.push({title, author, id, location, status});
+            
+            // Clear form
+            document.getElementById('bookTitle').value = '';
+            document.getElementById('bookAuthor').value = '';
+            document.getElementById('bookId').value = '';
+            
+            alert(`Book "${title}" by ${author} added successfully!\nStatus: ${status}\nLocation: ${location}`);
+            updateBookDisplay();
+        }
+        
+        function importCSVBooks() {
+            const csvText = document.getElementById('csvBooks').value;
+            if (!csvText.trim()) {
+                alert('Please enter CSV data!');
+                return;
+            }
+            
+            const lines = csvText.trim().split('\n');
+            let addedCount = 0;
+            let errorCount = 0;
+            
+            lines.forEach(line => {
+                const parts = line.split(',').map(part => part.trim());
+                if (parts.length >= 5) {
+                    const [title, author, id, location, status] = parts;
+                    
+                    if (!villageBooks.find(book => book.id === id)) {
+                        villageBooks.push({title, author, id, location, status});
+                        addedCount++;
+                    } else {
+                        errorCount++;
+                    }
+                }
+            });
+            
+            document.getElementById('csvBooks').value = '';
+            alert(`CSV Import Complete!\nAdded: ${addedCount} books\nSkipped (ID exists): ${errorCount} books`);
+            updateBookDisplay();
+        }
+        
+        function addVillageBooks(category) {
+            const collections = {
+                telugu: [
+                    {title: "Amaravati Kathalu", author: "Satyam Sankaramanchi", id: "T001", location: "Gudlavalleru", status: "Available"},
+                    {title: "Maa Telugu Talli", author: "Sri Sri", id: "T002", location: "Gudlavalleru", status: "Available"},
+                    {title: "Telugu Naati Padyaalu", author: "Various", id: "T003", location: "Gudlavalleru", status: "Available"}
+                ],
+                agriculture: [
+                    {title: "Organic Farming Guide", author: "Agri University", id: "A001", location: "Gudlavalleru", status: "Available"},
+                    {title: "Pest Control Methods", author: "Dr. Reddy", id: "A002", location: "Gudlavalleru", status: "Available"},
+                    {title: "Crop Rotation Techniques", author: "Farmers Association", id: "A003", location: "Gudlavalleru", status: "Available"}
+                ],
+                folk: [
+                    {title: "Burra Kathalu", author: "Village Artists", id: "F001", location: "Gudlavalleru", status: "Available"},
+                    {title: "Veeragase Stories", author: "Local Tradition", id: "F002", location: "Gudlavalleru", status: "Available"},
+                    {title: "Village Folk Songs", author: "Elders Collection", id: "F003", location: "Gudlavalleru", status: "Available"}
+                ],
+                education: [
+                    {title: "10th Class Study Guide", author: "State Board", id: "E001", location: "Gudlavalleru", status: "Available"},
+                    {title: "Intermediate Mathematics", author: "Dr. Kumar", id: "E002", location: "Gudlavalleru", status: "Available"},
+                    {title: "General Knowledge", author: "Competition Series", id: "E003", location: "Gudlavalleru", status: "Available"}
+                ]
+            };
+            
+            const booksToAdd = collections[category] || [];
+            let addedCount = 0;
+            
+            booksToAdd.forEach(book => {
+                if (!villageBooks.find(b => b.id === book.id)) {
+                    villageBooks.push(book);
+                    addedCount++;
+                }
+            });
+            
+            alert(`Added ${addedCount} books from ${category} collection!`);
+            updateBookDisplay();
+        }
+        
+        function updateBookDisplay() {
+            // Update book count in statistics
+            const availableBooks = villageBooks.filter(book => book.status === "Available").length;
+            const borrowedBooks = villageBooks.filter(book => book.status === "Borrowed").length;
+            
+            // Update admin stats if dashboard is visible
+            const dashboard = document.getElementById('adminDashboard');
+            if (dashboard.style.display !== 'none') {
+                // Update could be implemented here
+            }
+        }
+        
+        function manageMembers() {
+            alert('👥 Member Management Dashboard:\n\n➕ Add New Members\n✏️ Edit Member Details\n🗑️ Remove Members\n📊 View Member Statistics\n📋 Manage Membership Status\n\nFeature coming soon!');
+        }
+        
+        function managePeriodicals() {
+            alert('📰 Periodical Management Dashboard:\n\n➕ Add New Periodicals\n✏️ Edit Periodical Details\n🗑️ Remove Periodicals\n📅 Manage Subscription Status\n📊 View Periodical Statistics\n\nFeature coming soon!');
+        }
+        
+        function viewReports() {
+            alert('📊 Library Reports Dashboard:\n\n📈 Daily Issue Statistics\n📚 Book Circulation Reports\n👥 Member Activity Reports\n💰 Financial Reports\n📊 Usage Analytics\n\nFeature coming soon!');
+        }
+        
+        function manageEvents() {
+            alert('📅 Event Management Dashboard:\n\n➕ Create New Events\n✏️ Edit Event Details\n🗑️ Cancel Events\n📋 Manage Registrations\n📊 View Event Statistics\n\nFeature coming soon!');
+        }
+    </script>
+</body>
+</html>
